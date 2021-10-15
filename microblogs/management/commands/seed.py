@@ -16,4 +16,4 @@ class Command(BaseCommand):
                                     last_name = self.last_name,
                                     email = self.faker.unique.email(),
                                     password = self.faker.password(),
-                                    bio = self.faker.text())
+                                    bio = f"Hey there!\n My name is {self.first_name}.")
