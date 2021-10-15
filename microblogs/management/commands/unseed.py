@@ -10,5 +10,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         users = User.objects.all()
         for user in users:
-            if not user.is_superuser:
+            if not (user.is_staff or user.is_superuser):
                 user.delete()
