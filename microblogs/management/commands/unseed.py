@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from faker import Faker
+from microblogs.models import User
 
 class Command(BaseCommand):
     def __init__(self):
@@ -7,4 +8,7 @@ class Command(BaseCommand):
         self.faker = Faker('en_GB')
 
     def handle(self, *args, **options):
-        print("WARNING: The UNSEED command has not been implemented yet.")
+        users = User.objects.all()
+        for user in users:
+            if not user.is_superuser:
+                user.delete()
