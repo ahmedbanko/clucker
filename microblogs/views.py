@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm, LogInForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 def home(request):
@@ -31,6 +31,11 @@ def log_in(request):
                 login(request, user)
                 return redirect('feed')
         # If the log in was unsuccesfull
-        messages.add_message(request, messages.ERROR, 'The credentials provided were invalid!')        
+        messages.add_message(request, messages.ERROR, 'The credentials provided were invalid!')
     form = LogInForm()
     return render(request, 'log_in.html', {'form' : form})
+
+
+def log_out(request):
+    logout(request)
+    return redirect('home')
