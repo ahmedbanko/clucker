@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Post
 from django.core.validators import RegexValidator
 
 class SignUpForm(forms.ModelForm):
@@ -40,3 +40,10 @@ class SignUpForm(forms.ModelForm):
                     password = self.cleaned_data.get('new_password'),
         )
         return user
+
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['author', 'text']

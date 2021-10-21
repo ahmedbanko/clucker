@@ -36,3 +36,17 @@ class User(AbstractUser):
         unique = False,
         blank = True
     )
+
+
+
+class Post(models.Model):
+    author = models.ForeignKey(User, on_delete = models.CASCADE)
+    text = models.CharField(
+        max_length = 280,
+        unique = False,
+        blank = False
+    )
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        ordering = ["-created_at"]
