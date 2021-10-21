@@ -18,6 +18,10 @@ class LogOutViewTestCase(TestCase, LogInTester):
             is_active = True,
         )
 
+    def test_breaking_the_tests(self):
+        self.fail('This test is made to fail!!!')
+
+
 
     def test_log_out_url(self):
         self.assertEqual(self.url, '/log_out/')
