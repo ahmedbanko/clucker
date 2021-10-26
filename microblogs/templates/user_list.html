@@ -1,0 +1,8 @@
+{% if users %}
+    <dl>
+    {% for user in users %}
+      <li>{{user.username}}</li>
+    {% endfor %}
+    </dl> {% else %}
+    <p>No users are available.</p>
+{% endif %}

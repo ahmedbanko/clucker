@@ -25,6 +25,7 @@ class PostModelTestCase(TestCase, LogInTester):
     def test_valid_author(self):
         self.client.login(username = '@johndoe', password = 'Password123')
         self.assertTrue(self._is_logged_in())
+        self.assertEqual(self.user.username, '@johndoe')
 
 
     def test_author_cannot_be_blank(self):
@@ -40,7 +41,7 @@ class PostModelTestCase(TestCase, LogInTester):
          self._assert_post_is_invalid()
 
     def test_created_at_cannot_be_blank(self):
-        self.post.created_at = ''
+        self.post.created_at = ' '
         self._assert_post_is_invalid()
 
     def test_created_at_format_is_valid(self):

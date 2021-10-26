@@ -3,8 +3,24 @@
   <title>Clucker</title>
 </head>
 <body>
-<h1>Feed</h1>
-<p><b>Under Construction</b>: This page will contain a user-specific feed of clucks.</p>
+<h1>{{user}}'s Feed Page</h1>
+<p><b>Type a new cluck</b></p>
+<form action="{% url 'feed' %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="POST">
+</form>
+
+{% if posts %}
+    <dl>
+    {% for post in posts %}
+      <li>{{post.author.username}}</li>
+      <dd>{{post.text}}</dd>
+        <dd>{{post.created_at}}</dd>
+    {% endfor %}
+    </dl> {% else %}
+    <p>No posts yet.</p>
+{% endif %}
 
 </body>
 </html>

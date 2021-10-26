@@ -8,7 +8,7 @@ from microblogs.forms import PostForm
 class PostFormTestCase(TestCase):
 
     def setUp(self):
-        user = User.objects.create_user(
+        self.user = User.objects.create_user(
             '@johndoe',
             first_name = 'John',
             last_name = 'Doe',
@@ -18,7 +18,6 @@ class PostFormTestCase(TestCase):
             is_active = True,
         )
         self.form_input = {
-            'author': user,
             'text': 'some text'
         }
 
@@ -30,7 +29,7 @@ class PostFormTestCase(TestCase):
 
     # Test if the form declines invalid input data
     def test_invalid_post_form(self):
-        self.form_input['author'] = ''
+        self.form_input['text'] = ''
         form = PostForm(data = self.form_input)
         self.assertFalse(form.is_valid())
 
@@ -38,5 +37,4 @@ class PostFormTestCase(TestCase):
      # Test if the form has necessary fields
     def test_form_has_necessary_fields(self):
         form = PostForm()
-        self.assertIn('author', form.fields)
         self.assertIn('text', form.fields)
