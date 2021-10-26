@@ -8,6 +8,15 @@ from microblogs.forms import PostForm
 class PostFormTestCase(TestCase):
 
     def setUp(self):
+        user = User.objects.create_user(
+            '@johndoe',
+            first_name = 'John',
+            last_name = 'Doe',
+            email = 'johndoe@example.org',
+            password = 'Password123',
+            bio = 'The quick brown fox jumps over the lazy dog.',
+            is_active = True,
+        )
         self.form_input = {
             'author': user,
             'text': 'some text'

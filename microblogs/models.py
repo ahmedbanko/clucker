@@ -46,7 +46,7 @@ class Post(models.Model):
         unique = False,
         blank = False
     )
-    created_at = models.DateTimeField(auto_now_add = True)
+    created_at = models.DateTimeField(auto_now_add = True, blank = False)
 
     class Meta:
         ordering = ["-created_at"]
