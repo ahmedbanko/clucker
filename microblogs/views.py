@@ -3,6 +3,7 @@ from .forms import SignUpForm, LogInForm, PostForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from microblogs.models import User, Post
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'home.html')
@@ -19,7 +20,7 @@ def sign_up(request):
     return render(request, 'sign_up.html', {'form': form})
 
 
-
+@login_required
 def feed(request):
     logged_in_user = request.user
     posts = Post.objects.filter(author=logged_in_user)
@@ -57,7 +58,15 @@ def log_out(request):
     return redirect('home')
 
 
-
+@login_required
 def user_list(request):
     users = User.objects.all()
     return render(request, 'user_list.html', {'users': users})
+
+
+
+@login_required
+def show_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    posts = Post.objects.filter(author=user)
+    return render(request, 'show_user.html', {'user': user, 'posts': posts})

@@ -13,10 +13,12 @@
 
 {% if posts %}
     <dl>
+    <h>-----------------------------------------------</h>
     {% for post in posts %}
       <li>{{post.author.username}}</li>
       <dd>{{post.text}}</dd>
         <dd>{{post.created_at}}</dd>
+    <h>-----------------------------------------------</h>    
     {% endfor %}
     </dl> {% else %}
     <p>No posts yet.</p>

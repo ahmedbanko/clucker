@@ -4,7 +4,7 @@ from microblogs.models import User, Post
 from microblogs.forms import PostForm
 
 
-""" Unit test for the sign up form"""
+""" Unit test for the post form"""
 class PostFormTestCase(TestCase):
 
     def setUp(self):

@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>Clucker</title>
+</head>
+<body>
+  {% if user %}
+  <div class="text">
+        <pre>
+<b>{{'Username:'}}</b> {{user.username}}
+<b>{{'First Name:'}}</b> {{user.first_name}}
+<b>{{'Last Name:'}}</b> {{user.last_name}}
+<b>{{'Bio:'}}</b> {{user.bio}}
+      </pre>
+    </div>
+      </dl> {% else %}
+      <p>User not found.</p>
+  {% endif %}
+  <br><u><b>Posts:</b></u></br>
+{% if posts %}
+    <dl>
+      <h>-----------------------------------------------</h>
+    {% for post in posts %}
+      <dd>{{post.text}}</dd>
+      <dd>{{post.created_at}}</dd>
+      <h>-----------------------------------------------</h>
+    {% endfor %}
+    </dl> {% else %}
+    <p>No posts yet.</p>
+{% endif %}
+
+</body>
+</html>
