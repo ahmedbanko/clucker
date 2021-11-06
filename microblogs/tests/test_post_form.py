@@ -53,12 +53,12 @@ class PostFormTestCase(TestCase):
     #     self.assertTrue(isinstance(form, PostForm))
     #     self.assertTrue(form.is_bound)
     #
-
+    #
     # def test_succesful_post(self):
     #     before_count = Post.objects.count()
     #     response = self.client.post(self.url, self.form_input, follow = True)
-    #     # response_url = reverse('feed')
-    #     # self.assertRedirects(response, response_url, status_code = 302, target_status_code = 200)
-    #     # self.assertTemplateUsed(response, 'feed.html')
+    #     response_url = reverse('feed')
+    #     self.assertRedirects(response, response_url, status_code = 302, target_status_code = 200)
+    #     self.assertTemplateUsed(response, 'feed.html')
     #     after_count = Post.objects.count()
     #     self.assertEqual(after_count, before_count+1)
