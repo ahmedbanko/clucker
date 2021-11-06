@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.contrib.messages import constants as message_constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-la^g%^2l_7ux#@th)t)jyxr+%)bww=&3%c)@$41az(i_#fo3k!'
+SECRET_KEY = 'django-insecure-la^g%^2l_7ux#@th)t)jyxr%)bww=&3%c)@$41az(i_#fo3k!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -131,3 +132,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User model for authentication purpose
 AUTH_USER_MODEL = 'microblogs.User'
+
+
+ # Message level tags should use Bootstrap terms
+MESSAGE_TAGS = {
+message_constants.DEBUG: 'dark',
+message_constants.ERROR: 'danger',
+}

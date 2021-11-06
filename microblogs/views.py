@@ -29,11 +29,11 @@ def feed(request):
         if form.is_valid():
             Post.objects.create(author = logged_in_user, text = form.cleaned_data.get('text'))
             return redirect('feed')
-        messages.add_message(request, messages.ERROR, 'The provided post were invalid!')
+        else:
+            messages.add_message(request, messages.ERROR, 'The provided post were invalid!')
     else:
-        users = User.objects.all()
         form = PostForm()
-    return render(request, 'feed.html', {'user': request.user, 'form': form, 'posts': posts})
+        return render(request, 'feed.html', {'user': request.user, 'form': form, 'posts': posts})
 
 
 
