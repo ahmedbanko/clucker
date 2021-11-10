@@ -5,6 +5,16 @@ from django.contrib import messages
 from microblogs.models import User, Post
 from django.contrib.auth.decorators import login_required
 
+
+def login_prohibited(view_function):
+    def modified_view_function(request):
+        if request.user.is_authenticated:
+            return redirect('feed')
+        else:
+            return view_function(request)
+    return modified_view_function
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -35,9 +45,7 @@ def feed(request):
         form = PostForm()
         return render(request, 'feed.html', {'user': request.user, 'form': form, 'posts': posts})
 
-
-
-
+@login_prohibited
 def log_in(request):
     if request.method == 'POST':
         form = LogInForm(request.POST)
