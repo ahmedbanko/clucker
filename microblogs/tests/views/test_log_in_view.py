@@ -8,18 +8,12 @@ from django.contrib import messages
 
 class LogInViewTestCase(TestCase, LogInTester):
 
+    fixtures = ['microblogs/tests/fixtures/default_user.json']
+
     def setUp(self):
         self.url = reverse('log_in')
-        self.user = User.objects.create_user(
-            '@johndoe',
-            first_name = 'John',
-            last_name = 'Doe',
-            email = 'johndoe@example.org',
-            password = 'Password123',
-            bio = 'The quick brown fox jumps over the lazy dog.',
-            is_active = True,
-        )
-
+        self.user = User.objects.get(username='@johndoe')
+        
 
     def test_log_in_url(self):
         self.assertEqual(self.url, '/log_in/')
