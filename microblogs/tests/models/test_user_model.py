@@ -5,15 +5,14 @@ from django.core.validators import validate_email
 
 """ Unit test for the user model"""
 class UserModelTestCase(TestCase):
+
+    fixtures = [
+    'microblogs/tests/fixtures/default_user.json',
+    'microblogs/tests/fixtures/other_users.json'
+    ]
+
     def setUp(self):
-        self.user = User.objects.create_user(
-            '@johndoe',
-            first_name = 'John',
-            last_name = 'Doe',
-            email = 'johndoe@example.org',
-            password = 'Password123',
-            bio = 'The quick brown fox jumps over the lazy dog.'
-        )
+        self.user = User.objects.get(username='@johndoe')
  # ***** TESTS FOR USER *****
     def test_valid_user(self):
         self._assert_user_is_valid()
@@ -32,7 +31,8 @@ class UserModelTestCase(TestCase):
          self._assert_user_is_invalid()
 
     def test_username_must_be_unique(self):
-        self.user.username = self.second_user().username
+        second_user = User.objects.get(username='@janedoe')
+        self.user.username = second_user.username
         self._assert_user_is_invalid()
 
     def test_username_start_with_at_symbol(self):
@@ -66,12 +66,13 @@ class UserModelTestCase(TestCase):
         self._assert_user_is_valid()
 
     def test_first_name_cannot_be_over_50_character_long(self):
-         self.user.first_name = 'x' * 51
-         self._assert_user_is_invalid()
+        self.user.first_name = 'x' * 51
+        self._assert_user_is_invalid()
 
     def test_first_name_may_not_be_unique(self):
-         self.user.first_name = self.second_user().first_name
-         self._assert_user_is_valid()
+        second_user = User.objects.get(username='@janedoe')
+        self.user.first_name = second_user.first_name
+        self._assert_user_is_valid()
 
 
  # ***** TESTS FOR LAST_NAME *****
@@ -84,12 +85,13 @@ class UserModelTestCase(TestCase):
         self._assert_user_is_valid()
 
     def test_last_name_cannot_be_over_50_character_long(self):
-         self.user.last_name = 'x' * 51
-         self._assert_user_is_invalid()
+        self.user.last_name = 'x' * 51
+        self._assert_user_is_invalid()
 
     def test_last_name_may_not_be_unique(self):
-         self.user.last_name = self.second_user().last_name
-         self._assert_user_is_valid()
+        second_user = User.objects.get(username='@janedoe')
+        self.user.last_name = second_user.last_name
+        self._assert_user_is_valid()
 
 
  # ***** TESTS FOR EMAIL*****
@@ -98,7 +100,8 @@ class UserModelTestCase(TestCase):
         self._assert_user_is_invalid()
 
     def test_email_must_be_unique(self):
-        self.user.email = self.second_user().email
+        second_user = User.objects.get(username='@janedoe')
+        self.user.email = second_user.email
         self._assert_user_is_invalid()
 
     def test_email_must_be_valid(self):
@@ -126,24 +129,10 @@ class UserModelTestCase(TestCase):
          self._assert_user_is_invalid()
 
     def test_bio_may_not_be_unique(self):
-         self.user.bio = self.second_user().bio
+         second_user = User.objects.get(username='@janedoe')
+         self.user.bio = second_user.bio
          self._assert_user_is_valid()
 
-
-
-
-
-
-    def second_user(self):
-        user = User.objects.create_user(
-            '@janedoe',
-            first_name = 'Jane',
-            last_name = 'Doe',
-            email = 'janedoe@example.org',
-            password = 'Password123',
-            bio = "Janedoe's Profile"
-        )
-        return user
 
 
     def _assert_user_is_valid(self):
