@@ -90,6 +90,14 @@ class LogInViewTestCase(TestCase, LogInTester):
         self.assertEqual(len(messages_list), 0)
 
 
+    def test_post_log_in_with_incorrect_credentials_and_redirect(self):
+        redirect_url = reverse('user_list')
+        form_input = { 'username': '@johndoe', 'password': 'WrongPassword123', 'next': redirect_url }
+        response = self.client.post(self.url, form_input)
+        next = response.context['next']
+        self.assertEqual(next, redirect_url)
+
+
     def test_log_in_with_blank_username(self):
         form_input = {'username' : '', 'password' : 'Password123'}
         response = self.client.post(self.url, form_input)
