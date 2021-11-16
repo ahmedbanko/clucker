@@ -1,35 +1,18 @@
-{% extends 'base_content.html'%}
+{% extends 'base_content.html' %}
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-6 offset-md-3">
-      <h1>{{user}}'s Feed Page</h1>
-      <div>
-        <b>Type a new cluck</b>
-      </div>
-      <form action="{% url 'feed' %}" method="POST">
+    <div class="col-xs-12 col-lg-6 col-xl-4">
+      {% include 'partials/user_profile.html' with following=False followable=False %}
+      <form action="{% url 'new_post' %}" method="post">
         {% csrf_token %}
         {% include 'partials/bootstrap_form.html' with form=form %}
-        <input type="submit" value="POST" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">Cluck</button>
       </form>
-      <br>
-      <div class="row">
-        <div>
-          <b>Posts:</b>
-        </div>
-        {% if posts %}
-        <dl>
-          <hr>
-          {% for post in posts %}
-          <p>{{post.text}}<br>
-            {{post.created_at}}
-          </p>
-          <hr>
-          {% endfor %}
-        </dl> {% else %}
-        <p>No posts yet.</p>
-        {% endif %}
-      </div>
+    </div>
+    <div class="col-xs-12 col-lg-6 col-xl-8">
+      <h1>Feed</h1>
+      {% include 'partials/posts_as_table.html' with posts=posts %}
     </div>
   </div>
 </div>

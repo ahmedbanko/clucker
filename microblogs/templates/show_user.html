@@ -1,32 +1,13 @@
-<html>
-<head>
-  <title>Clucker</title>
-</head>
-<body>
-  {% if user %}
-  <div class="text">
-        <pre>
-<b>{{'Username:'}}</b> {{user.username}}
-<b>{{'First Name:'}}</b> {{user.first_name}}
-<b>{{'Last Name:'}}</b> {{user.last_name}}
-<b>{{'Bio:'}}</b> {{user.bio}}
-      </pre>
+{% extends 'base_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row content">
+    <div class="col-xs-12 col-lg-6 col-xl-4">
+      {% include 'partials/user_profile.html' with following=following followable=followable %}
     </div>
-      </dl> {% else %}
-      <p>User not found.</p>
-  {% endif %}
-  <br><u><b>Posts:</b></u></br>
-{% if posts %}
-    <dl>
-      <h>-----------------------------------------------</h>
-    {% for post in posts %}
-      <dd>{{post.text}}</dd>
-      <dd>{{post.created_at}}</dd>
-      <h>-----------------------------------------------</h>
-    {% endfor %}
-    </dl> {% else %}
-    <p>No posts yet.</p>
-{% endif %}
-
-</body>
-</html>
+    <div class="col-xs-12 col-lg-6 col-xl-8">
+      {% include 'partials/posts_as_table.html' with posts=posts %}
+    </div>
+  </div>
+</div>
+{% endblock %}
